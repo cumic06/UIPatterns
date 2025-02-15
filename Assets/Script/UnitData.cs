@@ -4,35 +4,67 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "UnitData", menuName = "Data/UnitData")]
 public class UnitData : ScriptableObject
 {
-    [SerializeField] private UnitStat unitStat;
-    public UnitStat UnitStat => unitStat;
+    #region Fields
 
-    private Action _onChangedData;
+    [SerializeField] private UnitStat unitMaxStat;
+    private UnitStat _currentUnitStat;
+    public UnitStat UnitMaxStat => unitMaxStat;
+
+    private Action<UnitData> _onChangedData;
+
+    #endregion
+
+    private void OnValidate()
+    {
+        _onChangedData?.Invoke(this);
+    }
+
+    #region UnitMaxStat
+
+    public void IncreaseUnitMaxStat(UnitStat unitStat)
+    {
+        unitMaxStat.Health += unitStat.Health;
+        unitMaxStat.AttackPower += unitStat.AttackPower;
+        unitMaxStat.DefensePower += unitStat.DefensePower;
+        _onChangedData?.Invoke(this);
+    }
+
+    public void DecreaseUnitMaxStat(UnitStat unitStat)
+    {
+        unitMaxStat.Health -= unitStat.Health;
+        unitMaxStat.AttackPower -= unitStat.AttackPower;
+        unitMaxStat.DefensePower -= unitStat.DefensePower;
+        _onChangedData?.Invoke(this);
+    }
+
+    #endregion
+
+    #region UnitStat
 
     public void IncreaseUnitStat(UnitStat unitStat)
     {
-        this.unitStat.Health += unitStat.Health;
-        this.unitStat.AttackPower += unitStat.AttackPower;
-        this.unitStat.DefensePower += unitStat.DefensePower;
-
-        _onChangedData?.Invoke();
+        unitMaxStat.Health += unitStat.Health;
+        unitMaxStat.AttackPower += unitStat.AttackPower;
+        unitMaxStat.DefensePower += unitStat.DefensePower;
+        _onChangedData?.Invoke(this);
     }
 
     public void DecreaseUnitStat(UnitStat unitStat)
     {
-        this.unitStat.Health -= unitStat.Health;
-        this.unitStat.AttackPower -= unitStat.AttackPower;
-        this.unitStat.DefensePower -= unitStat.DefensePower;
-        
-        _onChangedData?.Invoke();
+        unitMaxStat.Health -= unitStat.Health;
+        unitMaxStat.AttackPower -= unitStat.AttackPower;
+        unitMaxStat.DefensePower -= unitStat.DefensePower;
+        _onChangedData?.Invoke(this);
     }
 
-    public void Subscribe(Action action)
+    #endregion
+
+    public void Subscribe(Action<UnitData> action)
     {
         _onChangedData += action;
     }
 
-    public void UnSubscribe(Action action)
+    public void UnSubscribe(Action<UnitData> action)
     {
         _onChangedData -= action;
     }

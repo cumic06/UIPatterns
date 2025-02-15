@@ -1,8 +1,10 @@
-using UnityEngine;
+using System;
 
 public class ViewModel
 {
-    private UnitData _unitData;
+    private readonly UnitData _unitData;
+
+    private Action<UnitData> _onChangedData;
 
     public ViewModel(UnitData unitData)
     {
@@ -11,7 +13,25 @@ public class ViewModel
 
     public void IncreaseHealth()
     {
-        Debug.Log("Increase Health");
-        _unitData.IncreaseUnitStat(new UnitStat(100, 0, 0));
+        _unitData.IncreaseUnitMaxStat(new UnitStat(100, 0, 0));
+        _onChangedData?.Invoke(_unitData);
+    }
+
+    public void DecreaseUnitStat(UnitStat unitStat)
+    {
+        _unitData.DecreaseUnitMaxStat(new UnitStat(-100, 0, 0));
+        _onChangedData?.Invoke(_unitData);
+    }
+
+    public void Subscribe(Action<UnitData> action)
+    {
+        _onChangedData += action;
+        _unitData.Subscribe(_onChangedData);
+    }
+
+    public void UnSubscribe(Action<UnitData> action)
+    {
+        _onChangedData -= action;
+        _unitData.UnSubscribe(_onChangedData);
     }
 }
