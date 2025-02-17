@@ -14,9 +14,6 @@ namespace MVC
         [SerializeField] private UnitStat unitMaxStat;
         public UnitStat UnitMaxStat => unitMaxStat;
 
-        private UnitStat _currentUnitStat = new(0, 0, 0);
-        public UnitStat CurrentUnitStat => _currentUnitStat;
-
         private View _view;
 
         #endregion
@@ -24,6 +21,15 @@ namespace MVC
         public void OnInitialize(View view)
         {
             _view = view;
+            _view.ChangeStatText(this);
+        }
+
+        private void OnValidate()
+        {
+            if (_view != null)
+            {
+                _view.ChangeStatText(this);
+            }
         }
 
         #region UnitMaxStat
@@ -33,6 +39,8 @@ namespace MVC
             unitMaxStat.Health += unitStat.Health;
             unitMaxStat.AttackPower += unitStat.AttackPower;
             unitMaxStat.DefensePower += unitStat.DefensePower;
+
+            _view.ChangeStatText(this);
         }
 
         public void DecreaseUnitMaxStat(UnitStat unitStat)
@@ -40,6 +48,8 @@ namespace MVC
             unitMaxStat.Health -= unitStat.Health;
             unitMaxStat.AttackPower -= unitStat.AttackPower;
             unitMaxStat.DefensePower -= unitStat.DefensePower;
+
+            _view.ChangeStatText(this);
         }
 
         #endregion

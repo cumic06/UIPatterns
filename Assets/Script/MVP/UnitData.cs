@@ -14,9 +14,6 @@ namespace MVP
         [SerializeField] private UnitStat unitMaxStat;
         public UnitStat UnitMaxStat => unitMaxStat;
 
-        private UnitStat _currentUnitStat = new(0, 0, 0);
-        public UnitStat CurrentUnitStat => _currentUnitStat;
-
         private Presenter _presenter;
 
         #endregion
