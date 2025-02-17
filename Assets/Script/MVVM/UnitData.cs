@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MVVM
 {
-    [CreateAssetMenu(fileName = "UnitData", menuName = "Data/UnitData")]
+    [CreateAssetMenu(fileName = "UnitData", menuName = "Data/MVVM/UnitData")]
     public class UnitData : ScriptableObject
     {
         #region Fields
@@ -46,6 +46,10 @@ namespace MVVM
 
         #endregion
 
+        /// <summary>
+        /// 현재 스탯을 확인하는 부분은 MVVM에서만 사용했습니다.
+        /// </summary>
+        /// <param name="unitStat"></param>
         #region UnitStat
 
         public void IncreaseUnitStat(UnitStat unitStat)

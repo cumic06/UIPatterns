@@ -22,7 +22,7 @@ namespace MVVM
 
             increaseHealthButton.onClick.AddListener(_viewModel.IncreaseHealth);
 
-            ChangeStatText(_unitData);
+            ChangeStatText(_unitData);//이걸 viewModel에서 하는게 좀 더 나을듯.
 
             _viewModel.Subscribe(ChangeStatText);
         }
