@@ -17,7 +17,7 @@ public class ViewModel
         _onChangedData?.Invoke(_unitData);
     }
 
-    public void DecreaseUnitStat(UnitStat unitStat)
+    public void DecreaseUnitStat()
     {
         _unitData.DecreaseUnitMaxStat(new UnitStat(-100, 0, 0));
         _onChangedData?.Invoke(_unitData);

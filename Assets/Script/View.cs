@@ -1,11 +1,11 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI statText;
+    [SerializeField] private TextMeshProUGUI maxStatText;
+    [SerializeField] private TextMeshProUGUI currentStatText;
     [SerializeField] private Button increaseHealthButton;
 
     private UnitData _unitData;
@@ -34,15 +34,17 @@ public class View : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            var unitObject = Resources.Load("Prefabs/TestUnit");
-            var spawnUnit = unitObject as Unit;
-            spawnUnit.OnInitialize(_unitData.UnitMaxStat);
+            var spawnUnit = Instantiate(_unitData.Prefab);
+            var spawnedUnit = spawnUnit.GetComponent<Unit>();
+            spawnedUnit.OnInitialize(_unitData);
         }
     }
 
     private void ChangeStatText(UnitData unitData)
     {
-        statText.SetText(
-            $"Health : {unitData.UnitMaxStat.Health}\n AttackPower : {unitData.UnitMaxStat.AttackPower}\n DefensePower : {unitData.UnitMaxStat.DefensePower}");
+        maxStatText.SetText(
+            $"MaxHealth : {unitData.UnitMaxStat.Health}\n MaxAttackPower : {unitData.UnitMaxStat.AttackPower}\n MaxDefensePower : {unitData.UnitMaxStat.DefensePower}");
+        currentStatText.SetText(
+            $"Health : {unitData.CurrentUnitStat.Health}\n AttackPower : {unitData.CurrentUnitStat.AttackPower}\n DefensePower : {unitData.CurrentUnitStat.DefensePower}");
     }
 }

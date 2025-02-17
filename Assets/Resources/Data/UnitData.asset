@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670592216b01d44c79acd53d7d767b8f, type: 3}
   m_Name: UnitData
   m_EditorClassIdentifier: 
-  unitStat:
+  prefab: {fileID: 6720912002000804814, guid: 778822ec1c02b4aea95b3efd4d8d07e2, type: 3}
+  unitMaxStat:
     Health: 100
     AttackPower: 0
     DefensePower: 0

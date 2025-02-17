@@ -5,10 +5,14 @@ using UnityEngine;
 public class UnitData : ScriptableObject
 {
     #region Fields
-
+    [SerializeField] private GameObject prefab;
+    public GameObject Prefab => prefab;
+    
     [SerializeField] private UnitStat unitMaxStat;
-    private UnitStat _currentUnitStat;
     public UnitStat UnitMaxStat => unitMaxStat;
+
+    private UnitStat _currentUnitStat = new(0, 0, 0);
+    public UnitStat CurrentUnitStat => _currentUnitStat;
 
     private Action<UnitData> _onChangedData;
 
@@ -43,21 +47,27 @@ public class UnitData : ScriptableObject
 
     public void IncreaseUnitStat(UnitStat unitStat)
     {
-        unitMaxStat.Health += unitStat.Health;
-        unitMaxStat.AttackPower += unitStat.AttackPower;
-        unitMaxStat.DefensePower += unitStat.DefensePower;
+        _currentUnitStat.Health += unitStat.Health;
+        _currentUnitStat.AttackPower += unitStat.AttackPower;
+        _currentUnitStat.DefensePower += unitStat.DefensePower;
         _onChangedData?.Invoke(this);
     }
 
     public void DecreaseUnitStat(UnitStat unitStat)
     {
-        unitMaxStat.Health -= unitStat.Health;
-        unitMaxStat.AttackPower -= unitStat.AttackPower;
-        unitMaxStat.DefensePower -= unitStat.DefensePower;
+        _currentUnitStat.Health -= unitStat.Health;
+        _currentUnitStat.AttackPower -= unitStat.AttackPower;
+        _currentUnitStat.DefensePower -= unitStat.DefensePower;
         _onChangedData?.Invoke(this);
     }
 
     #endregion
+
+    public void OnInitialize()
+    {
+        _currentUnitStat = new UnitStat(unitMaxStat.Health, unitMaxStat.AttackPower, unitMaxStat.DefensePower);
+        _onChangedData?.Invoke(this);
+    }
 
     public void Subscribe(Action<UnitData> action)
     {

@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    private UnitStat _unitStat;
+    private UnitData _unitData;
 
-    public void OnInitialize(UnitStat unitStat)
+    public void OnInitialize(UnitData unitData)
     {
-        _unitStat = new UnitStat(unitStat.Health, unitStat.AttackPower, unitStat.DefensePower);
+        _unitData = unitData;
+        _unitData.OnInitialize();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _unitStat.Health--;
+            _unitData.DecreaseUnitStat(new UnitStat(1, 0, 0));
         }
     }
 }
