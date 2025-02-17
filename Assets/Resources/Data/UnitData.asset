@@ -17,3 +17,7 @@ MonoBehaviour:
     Health: 100
     AttackPower: 0
     DefensePower: 0
+  _currentUnitStat:
+    Health: 0
+    AttackPower: 0
+    DefensePower: 0

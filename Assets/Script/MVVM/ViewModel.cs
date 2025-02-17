@@ -29,7 +29,6 @@ namespace MVVM
         {
             _onChangedData += action;
             _unitData.Subscribe(_onChangedData);// UnitData(Model)에서 값이 변경돼도 View로 바인딩되게 액션 구독
-            
             _onChangedData?.Invoke(_unitData);//첫 실행 시 View에 바로 바인딩되게 
         }
 

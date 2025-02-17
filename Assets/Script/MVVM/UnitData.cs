@@ -25,10 +25,11 @@ namespace MVVM
         {
             _onChangedData?.Invoke(this);
         }
-        
+
         public void OnInitialize()
         {
-            _currentUnitStat = new UnitStat(unitMaxStat.Health, unitMaxStat.AttackPower, unitMaxStat.DefensePower); //현재 유닛 스탯 
+            _currentUnitStat =
+                new UnitStat(unitMaxStat.Health, unitMaxStat.AttackPower, unitMaxStat.DefensePower); //현재 유닛 스탯 
             _onChangedData?.Invoke(this); //초기화 하자마자 데이터 바인딩
         }
 
@@ -56,6 +57,7 @@ namespace MVVM
         /// 현재 스탯을 확인하는 부분은 MVVM에서만 사용했습니다.
         /// </summary>
         /// <param name="unitStat"></param>
+
         #region UnitStat
 
         public void IncreaseUnitStat(UnitStat unitStat)
@@ -76,12 +78,12 @@ namespace MVVM
 
         #endregion
 
-        public void Subscribe(Action<UnitData> action)//액션 등록 (데이터 바인딩)
+        public void Subscribe(Action<UnitData> action) //액션 등록 (데이터 바인딩)
         {
             _onChangedData += action;
         }
 
-        public void UnSubscribe(Action<UnitData> action)//액션 해제 (데이터 바인딩)
+        public void UnSubscribe(Action<UnitData> action) //액션 해제 (데이터 바인딩)
         {
             _onChangedData -= action;
         }
