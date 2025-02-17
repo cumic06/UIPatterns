@@ -8,9 +8,6 @@ namespace MVP
     {
         #region Fields
 
-        [SerializeField] private GameObject prefab;
-        public GameObject Prefab => prefab;
-
         [SerializeField] private UnitStat unitMaxStat;
         public UnitStat UnitMaxStat => unitMaxStat;
 
@@ -20,18 +17,18 @@ namespace MVP
 
         public void OnInitialize(Presenter presenter)
         {
-            _presenter = presenter;
+            _presenter = presenter; // Presenter할당
         }
 
-        #region UnitMaxStat
-
-        private void OnValidate()
+        private void OnValidate() //Inspector에서 변경 시에도 UI에 적용되게
         {
             if (_presenter != null)
             {
                 _presenter.UpdateView();
             }
         }
+
+        #region UnitMaxStat
 
         public void IncreaseUnitMaxStat(UnitStat unitStat)
         {

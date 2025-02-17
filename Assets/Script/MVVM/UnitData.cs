@@ -17,13 +17,19 @@ namespace MVVM
         private UnitStat _currentUnitStat = new(0, 0, 0);
         public UnitStat CurrentUnitStat => _currentUnitStat;
 
-        private Action<UnitData> _onChangedData;
+        private Action<UnitData> _onChangedData; //데이터 변경시 실행 할 액션(Model에서만 변경된 경우 ex 적에게 공격 당함)
 
         #endregion
 
-        private void OnValidate()
+        private void OnValidate() //Inspector에서 변경 시에도 UI에 적용되게
         {
             _onChangedData?.Invoke(this);
+        }
+        
+        public void OnInitialize()
+        {
+            _currentUnitStat = new UnitStat(unitMaxStat.Health, unitMaxStat.AttackPower, unitMaxStat.DefensePower); //현재 유닛 스탯 
+            _onChangedData?.Invoke(this); //초기화 하자마자 데이터 바인딩
         }
 
         #region UnitMaxStat
@@ -70,18 +76,12 @@ namespace MVVM
 
         #endregion
 
-        public void OnInitialize()
-        {
-            _currentUnitStat = new UnitStat(unitMaxStat.Health, unitMaxStat.AttackPower, unitMaxStat.DefensePower);
-            _onChangedData?.Invoke(this);
-        }
-
-        public void Subscribe(Action<UnitData> action)
+        public void Subscribe(Action<UnitData> action)//액션 등록 (데이터 바인딩)
         {
             _onChangedData += action;
         }
 
-        public void UnSubscribe(Action<UnitData> action)
+        public void UnSubscribe(Action<UnitData> action)//액션 해제 (데이터 바인딩)
         {
             _onChangedData -= action;
         }

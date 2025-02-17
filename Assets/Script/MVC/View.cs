@@ -13,10 +13,10 @@ namespace MVC
 
         private void Awake()
         {
-            var unitData = Resources.Load("Data/UnitData 2");
+            var unitData = Resources.Load("Data/UnitData 2");  //가져오기 편하게 로드
             _unitData = unitData as UnitData;
 
-            _unitData.OnInitialize(this);
+            _unitData.OnInitialize(this); //unitData는 ScriptableObject이기 때문에 따로 초기화가 불가능해서 함수로 초기화
         }
 
         public void ChangeStatText(UnitData unitData)

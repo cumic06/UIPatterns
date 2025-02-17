@@ -15,16 +15,14 @@ namespace MVVM
 
         private void Awake()
         {
-            var unitData = Resources.Load("Data/UnitData");
+            var unitData = Resources.Load("Data/UnitData"); //가져오기 편하게 로드
             _unitData = unitData as UnitData;
 
-            _viewModel = new ViewModel(_unitData);
+            _viewModel = new ViewModel(_unitData); //viewModel 생성 및 Unitdata(Model) 할당
 
-            increaseHealthButton.onClick.AddListener(_viewModel.IncreaseHealth);
+            increaseHealthButton.onClick.AddListener(_viewModel.IncreaseHealth); //버튼 눌렀을 때 액션 추가 (ViewModel 함수)
 
-            ChangeStatText(_unitData);//이걸 viewModel에서 하는게 좀 더 나을듯.
-
-            _viewModel.Subscribe(ChangeStatText);
+            _viewModel.Subscribe(ChangeStatText); //ViewModel에 함수 구독 (데이터 바인딩)
         }
 
         private void OnDisable()
@@ -32,6 +30,9 @@ namespace MVVM
             _viewModel.UnSubscribe(ChangeStatText);
         }
 
+        /// <summary>
+        /// 현재 스탯도 변경되는지 확인하기 위해서 유닛 생성
+        /// </summary>
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))

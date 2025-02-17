@@ -8,9 +8,6 @@ namespace MVC
     {
         #region Fields
 
-        [SerializeField] private GameObject prefab;
-        public GameObject Prefab => prefab;
-
         [SerializeField] private UnitStat unitMaxStat;
         public UnitStat UnitMaxStat => unitMaxStat;
 
@@ -21,10 +18,10 @@ namespace MVC
         public void OnInitialize(View view)
         {
             _view = view;
-            _view.ChangeStatText(this);
+            _view.ChangeStatText(this);//시작하자마자 스탯 표시
         }
 
-        private void OnValidate()
+        private void OnValidate()//Inspector에서 변경 시에도 UI에 적용되게
         {
             if (_view != null)
             {
